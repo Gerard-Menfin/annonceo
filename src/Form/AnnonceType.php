@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Annonce;
+use App\Entity\Annonce, App\Entity\Membre, App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,13 +45,27 @@ class AnnonceType extends AbstractType
             ->add('ville')
             ->add('cp')
             ->add('pays')
+            ->add('photo', Input\CollectionType::class, [
+                'entry_type'    => PhotoType::class,
+                'entry_options' => ['label' => "Photos"],
+            ])
+                                                
             ->add('membre', EntityType::class, [ 
-                                                 "class"   => Annonce::class,
-                                                 "choices" => $membres
-                                               ])
-            ->add('photo')
-            ->add('categorie')
-        ;
+                "class"        => Membre::class,
+                "choice_label" => "pseudo",
+                "placeholder"  => "Choisissez un membre",
+            ])
+
+            ->add('categorie', EntityType::class, [ 
+                "class"         => Categorie::class,
+                "choice_label"  => function(Categorie $cat){
+                    return $cat->getTitre() . " (" . substr($cat->getMotscles(), 0, 10) . ")";
+                },
+                "placeholder"   => "Choisissez une catégorie",
+            ])
+            
+            ->add("ajouter", Input\SubmitType::class, [ "label" => "Enregistrer"])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

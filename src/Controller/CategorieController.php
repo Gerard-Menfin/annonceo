@@ -38,7 +38,7 @@ class CategorieController extends AbstractController
     public function add(Request $rq, EMI $em)
     {
         // Les données du $_POST peuvent être récupérés avec 
-        // $request->request->get("nomDuFormlaire") qui est un array (comme $_POST)
+        // $request->request->get("nomDuFormulaire") qui est un array (comme $_POST)
         try{
             // Créer le formulaire
             $form = $this->createForm(CategorieType::class);
@@ -49,7 +49,11 @@ class CategorieController extends AbstractController
             if( $form->isSubmitted() && $form->isValid() ){
                 // Récupérer les données envoyées (si le formulaire est lié à une entité, getData() renvoie un
                 // objet de la classe de cette entité )
-                $data = $form->getData();   
+                $data = $form->getData();
+
+                $data->setDateEnregistrement( date_create("now") );
+
+
                 $em->persist($data);
                 $em->flush();
                 $this->addFlash('success', 'La catégorie  a bien été enregistrée !');
