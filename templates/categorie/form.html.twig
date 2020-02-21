@@ -1,9 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'formulaire.html.twig' %}
 
 
-{% block body %}
-    <h1> Ajouter une catégorie </h1>
-
+{% block form_titre %} Ajouter une catégorie {% endblock %}
+{% block form %}
     <section class="section has-background-white-ter">
         {{ form_start(form) }}
             {{ form_row(form.titre) }}

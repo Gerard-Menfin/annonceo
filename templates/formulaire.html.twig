@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="columns is-centered section">
+        <div class="column is-three-quarters box">
+            <h1 class="title has-text-primary has-text-centered">{% block form_titre %}Formulaire{% endblock %}</h1>
+            {% block form %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
