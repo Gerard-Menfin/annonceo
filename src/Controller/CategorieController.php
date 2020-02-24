@@ -8,17 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Form\CategorieType;
 use App\Entity\Categorie;
+use App\Repository\CategorieRepository as CR;
 
 class CategorieController extends AbstractController
 {
     /**
      * @Route("/categorie", name="categorie")
      */
-    public function index()
+    public function index(CR $cr)
     {
-        return $this->render('categorie/index.html.twig', [
-            'controller_name' => 'CategorieController',
-        ]);
+        $categories = $cr->findAll();
+        return $this->render('categorie/list.html.twig', compact("categories"));
     }
 
     /**

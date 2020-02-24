@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MembreRepository")
+ * @UniqueEntity(fields="pseudo", message="Le pseudo existe déjà dans la base de données")
  */
 class Membre implements UserInterface
 {
@@ -34,7 +36,7 @@ class Membre implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     private $pseudo;
 

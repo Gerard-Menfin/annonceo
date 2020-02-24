@@ -1,11 +1,14 @@
-{% extends "base.html.twig "%}
+{% extends "menu/admin.html.twig" %}
 
-<table class="table">
-{% for categorie in categories %}
-    <tr>
-        <td>categorie.titre</td>
-        <td>categorie.motscles</td>
-    </tr>
-{% endfor %}
-
-</table>
+{% block body %}
+    
+    <table class="table">
+    {% for categorie in categories %}
+        <tr>
+            <td>{{ categorie.titre }}</td>
+            <td>{{ categorie.motscles }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+{% endblock %}
