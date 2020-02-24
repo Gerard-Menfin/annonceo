@@ -2,6 +2,92 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
+#ACCUEIL
 accueil:
   path: /
   controller: App\Controller\AccueilController::index
+
+
+#CATEGORIE
+categorie:
+    path:       /categorie
+    controller: App\Controller\CategorieController::index
+    methods:    GET|HEAD
+
+categorie_list:
+    path:       /categorie
+    controller: App\Controller\CategorieController::list
+    methods:    GET|HEAD
+
+categorie_form:
+    path:       /categorie/ajouter
+    controller: App\Controller\CategorieController::form
+    methods:    GET
+
+categorie_add:
+    path:       /categorie/ajouter
+    controller: App\Controller\CategorieController::add
+    methods:    POST
+
+categorie_update:
+    path:       /categorie/modifier/{id}
+    controller: App\Controller\CategorieController::modify
+    methods:    POST
+
+categorie_delete:
+    path:       /categorie/supprimer/{id}
+    controller: App\Controller\Controller::erase
+    methods:    POST
+
+#ANNONCE
+annonce:
+    path:       /annonce
+    controller: App\Controller\AnnonceController::index
+    methods:    GET|HEAD
+
+annonce_list:
+    path:       /annonce
+    controller: App\Controller\AnnonceController::list
+    methods:    GET|HEAD
+
+annonce_add:
+    path:       /annonce/ajouter
+    controller: App\Controller\AnnonceController::add
+    methods:    GET|POST
+
+annonce_modify:
+    path:       /annonce/modifier/{id}
+    controller: App\Controller\AnnonceController::modify
+    methods:    POST
+
+annonce_erase:
+    path:       /annonce/supprimer/{id}
+    controller: App\Controller\Controller::erase
+    methods:    POST
+
+
+# :
+#     path:       ///{id}
+#     controller: App\Controller\Controller::
+#     methods:    GET|HEAD
+
+# :
+#     path:       ///{id}
+#     controller: App\Controller\Controller::
+#     methods:    GET|HEAD
+
+# :
+#     path:       ///{id}
+#     controller: App\Controller\Controller::
+#     methods:    GET|HEAD
+
+# :
+#     path:       ///{id}
+#     controller: App\Controller\Controller::
+#     methods:    GET|HEAD
+
+# :
+#     path:       ///{id}
+#     controller: App\Controller\Controller::
+#     methods:    GET|HEAD
+

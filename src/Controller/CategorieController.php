@@ -8,17 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Form\CategorieType;
 use App\Entity\Categorie;
+use App\Repository\CategorieRepository as CR;
 
 class CategorieController extends AbstractController
 {
     /**
      * @Route("/categorie", name="categorie")
      */
-    public function index()
+    public function index(CR $cr)
     {
-        return $this->render('categorie/index.html.twig', [
-            'controller_name' => 'CategorieController',
-        ]);
+        $categories = $cr->findAll();
+        return $this->render('categorie/list.html.twig', compact("categories"));
     }
 
     /**
@@ -27,9 +27,7 @@ class CategorieController extends AbstractController
     public function form()
     {
         $form = $this->createForm(CategorieType::class);
-        return $this->render('categorie/index.html.twig', [
-            'form' => $form->createView(),
-        ]); 
+        return $this->render('categorie/form.html.twig', [ 'form' => $form->createView() ]); 
     }
 
     /**
@@ -62,7 +60,7 @@ class CategorieController extends AbstractController
             elseif(!$form->isValid()) {
                 $this->addFlash('error', 'Les données du formulaire ne sont pas valides');
                 // $form = $this->createForm(CategorieType::class, $form->getData());
-                return $this->render('categorie/index.html.twig', [
+                return $this->render('categorie/form.html.twig', [
                     'form' => $form->createView(),
                 ]); 
             }

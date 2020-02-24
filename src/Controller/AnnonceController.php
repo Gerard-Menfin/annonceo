@@ -8,22 +8,23 @@ use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Entity\Annonce;
+use App\Repository\AnnonceRepository as AR;
 
 class AnnonceController extends AbstractController
 {
     /**
      * @Route("/annonce", name="annonce")
      */
-    public function index()
+    public function index(Request $rq, EMI $em, AR $ar)
     {
-
+        $annonce = $ar->findAll();
         return $this->render('annonce/list.html.twig', []);
     }
 
     /**
      * @Route("/annonce/ajouter", name="annonce_add")
      */
-    public function form(Request $rq, EMI $em){
+    public function form(Request $rq, EMI $em, AR $ar){
         $form = $this->createForm(AnnonceType::class);
         $form->handleRequest($rq);
 
@@ -50,5 +51,18 @@ class AnnonceController extends AbstractController
         }
         $form = $form->createView();
         return $this->render("annonce/form.html.twig", compact("form"));
+    }
+
+    /**
+     * 
+     */
+    public function modify(Request $rq, EMI $em, AR $ar)
+    {
+        # code...
+    }
+
+    public function erase(Request $rq, EMI $em, AR $ar)
+    {
+        # code...
     }
 }
