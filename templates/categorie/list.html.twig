@@ -1,0 +1,11 @@
+{% extends "base.html.twig "%}
+
+<table class="table">
+{% for categorie in categories %}
+    <tr>
+        <td>categorie.titre</td>
+        <td>categorie.motscles</td>
+    </tr>
+{% endfor %}
+
+</table>
