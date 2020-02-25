@@ -3,8 +3,9 @@
         <img src="{{ dossier_images_annonces ~ annonce.photo.photo1 }}" class="vignette">
     </div>
     <div class="column">
-        <h5>{{ annonce.titre }}</h5>
+        <h4>{{ annonce.titre|upper }}</h4>
         <p>{{ annonce.descriptioncourte }}</p>
+        <p><span>{{ annonce.membre.pseudo }}</span> <span class="is-pulled-right">{{ annonce.prix }} €</span></p>
     </div>
 </div>
 <br>
