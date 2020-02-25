@@ -1,7 +1,10 @@
-<div>
-    <img src="{{ annonce.photo.photo1 }}" class="vignette">
-    <div>
-        <p>{{ annonce.titre }}</p>
-        <p>{{ annonce.descrition_courte }}
+<div class="columns box">
+    <div class="column is-one-quarter">
+        <img src="{{ dossier_images_annonces ~ annonce.photo.photo1 }}" class="vignette">
+    </div>
+    <div class="column">
+        <h5>{{ annonce.titre }}</h5>
+        <p>{{ annonce.descriptioncourte }}</p>
     </div>
 </div>
+<br>

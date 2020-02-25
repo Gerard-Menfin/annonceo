@@ -28,7 +28,8 @@ class MembreController extends AbstractController
      */
     public function profil()
     {
-        return $this->render('membre/profil.html.twig');
+        $mes_annonces = $this->getUser()->getAnnonces();
+        return $this->render('membre/profil.html.twig', compact("mes_annonces"));
     }
 
     
@@ -74,7 +75,6 @@ class MembreController extends AbstractController
 
         $form = $form->createView();
         return $this->render("membre/annonce.html.twig", compact("form"));
-
     }
     
 }

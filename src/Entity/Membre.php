@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -64,6 +66,16 @@ class Membre implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $date_enregistrement;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Annonce", mappedBy="membre", orphanRemoval=true)
+     */
+    private $annonces;
+
+    public function __construct()
+    {
+        $this->annonces = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -211,6 +223,37 @@ class Membre implements UserInterface
     public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): self
     {
         $this->date_enregistrement = $date_enregistrement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces[] = $annonce;
+            $annonce->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->contains($annonce)) {
+            $this->annonces->removeElement($annonce);
+            // set the owning side to null (unless already changed)
+            if ($annonce->getMembre() === $this) {
+                $annonce->setMembre(null);
+            }
+        }
 
         return $this;
     }
