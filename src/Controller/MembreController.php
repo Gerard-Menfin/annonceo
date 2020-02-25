@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
+use App\Entity\Photo, DateTime;
 
 class MembreController extends AbstractController
 {
@@ -37,6 +38,39 @@ class MembreController extends AbstractController
     public function nouvelle_annonce(Request $rq, EMI $em){
         $form = $this->createForm(AnnonceType::class);
         $form->handleRequest($rq);
+
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                $nvlAnnonce = $form->getData();
+                $album = new Photo;
+                $destination = $this->getParameter("dossier_images_annonces");
+                for($i=1; $i<=5; $i++){
+                    $champ = "photo" . $i;
+                    if($photoUploadee = $form[$champ]->getData()){
+                        $nomPhoto = pathinfo($photoUploadee->getClientOriginalName(), PATHINFO_FILENAME);
+                        $nouveauNom = trim($nomPhoto);
+                        $nouveauNom = str_replace(" ", "_", $nouveauNom);
+                        $nouveauNom .= "-" . uniqid() . "." . $photoUploadee->guessExtension();
+                        $photoUploadee->move($destination, $nouveauNom);
+                        $setter = "setPhoto$i";
+                        $album->$setter($nouveauNom);
+                    }
+                }
+                $em->persist($album);
+                $em->flush();
+                $nvlAnnonce->setDateEnregistrement(new DateTime());
+                $nvlAnnonce->setPhoto($album);
+                $nvlAnnonce->setMembre($this->getUser());
+                $em->persist($nvlAnnonce);
+                $em->flush();
+                $this->addFlash("success", "Votre annonce a bien été enregistrée");
+                return $this->redirectToRoute("profil");
+            }
+            else{
+                $this->addFlash("error", "Il manque des informations pour enregistrer votre annonce");
+
+            }
+        }
 
         $form = $form->createView();
         return $this->render("membre/annonce.html.twig", compact("form"));

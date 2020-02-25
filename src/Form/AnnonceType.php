@@ -24,6 +24,12 @@ class AnnonceType extends AbstractType
             ->add('ville')
             ->add('cp')
             ->add('pays')
+            ->add("photo1", Input\FileType::class, [ "label" => "1ère photo", "mapped" => false ])
+            ->add("photo2", Input\FileType::class, [ "label" => "2ième photo", "mapped" => false, "required" => false ])
+            ->add("photo3", Input\FileType::class, [ "label" => "3ième photo", "mapped" => false, "required" => false ])
+            ->add("photo4", Input\FileType::class, [ "label" => "4ième photo", "mapped" => false, "required" => false ])
+            ->add("photo5", Input\FileType::class, [ "label" => "5ième photo", "mapped" => false, "required" => false ])
+
             // ->add('photo', Input\CollectionType::class, [
             //     'entry_type'    => PhotoType::class,
             //     'entry_options' => ['label' => "Photos"],

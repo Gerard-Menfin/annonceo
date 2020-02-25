@@ -13,9 +13,11 @@
         {% endblock %}
 
         {# MESSAGES #}
-        {% for type, message in app.flashes %}
+        {% for type, messages in app.flashes %}
             <div class="has-background-{{ type }}">
-                {{ message }}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
             </div>
         {% endfor %}
         
