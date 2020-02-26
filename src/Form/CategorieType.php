@@ -14,15 +14,15 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', Input\TextType::class, [ "help" => "Tapez le titre de la catégorie", 
-                                              "data" =>"Catégorie",
-                                              "constraints" => [ 
-                                                                  new Contrainte\NotBlank(["message" => "Vous avez oublié de remplir ce champ"]),
-                                                                  new Contrainte\Length([ "min" => 2, "max" => 20, 
-                                                                                          "minMessage" => "Le titre doit avoir au moins 2 caractères",
-                                                                                          "maxMessage" => "Le titre ne doit pas dépasser 20 caractères"
-                                                                                        ])
-                                                                ]
+            ->add('titre', Input\TextType::class, [ "help" => "Tapez le titre de la catégorie",
+                                                    "attr" => [ "placeholder" => "Catégorie"],
+                                                    "constraints" => [ 
+                                                                        new Contrainte\NotBlank(["message" => "Vous avez oublié de remplir ce champ"]),
+                                                                        new Contrainte\Length([ "min" => 2, "max" => 20, 
+                                                                                                "minMessage" => "Le titre doit avoir au moins 2 caractères",
+                                                                                                "maxMessage" => "Le titre ne doit pas dépasser 20 caractères"
+                                                                                                ])
+                                                                        ]
                                             ])
             ->add('motscles', Input\TextareaType::class, [ "label" => "Mots clés", 
                                                      "help" => "Séparez les mots clés par des ','" ])

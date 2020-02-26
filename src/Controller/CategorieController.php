@@ -27,7 +27,7 @@ class CategorieController extends AbstractController
     public function form()
     {
         $form = $this->createForm(CategorieType::class);
-        return $this->render('categorie/index.html.twig', [
+        return $this->render('categorie/form.html.twig', [
             'form' => $form->createView(),
         ]); 
     }
@@ -62,7 +62,7 @@ class CategorieController extends AbstractController
             elseif(!$form->isValid()) {
                 $this->addFlash('error', 'Les données du formulaire ne sont pas valides');
                 // $form = $this->createForm(CategorieType::class, $form->getData());
-                return $this->render('categorie/index.html.twig', [
+                return $this->render('categorie/form.html.twig', [
                     'form' => $form->createView(),
                 ]); 
             }
@@ -75,6 +75,17 @@ class CategorieController extends AbstractController
             dd($e->getMessage(), $e);
         }
 
+    }
+    /**
+     * @Route("categorie/modify/{id}", name="categorie_modify")
+     */
+    public function modify(Request $rq, CR $repo, $id)
+    {
+        $categorieAmodifier = $repo->find($id);
+        $form = $this->createForm(CategorieType::class, $categorieAmodifier);
+        return $this->render('categorie/form.html.twig', [
+            'form' => $form->createView(),
+        ]); 
     }
 
     

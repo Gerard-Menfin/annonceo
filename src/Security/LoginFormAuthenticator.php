@@ -28,13 +28,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $security;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, Security $security)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->security = $security;
     }
 
     public function supports(Request $request)
@@ -96,7 +98,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate("profil"));
+        if($this->security->isGranted("ROLE_ADMIN"))
+            return new RedirectResponse($this->urlGenerator->generate("admin"));
+        else
+            return new RedirectResponse($this->urlGenerator->generate("profil"));
     }
 
     protected function getLoginUrl()

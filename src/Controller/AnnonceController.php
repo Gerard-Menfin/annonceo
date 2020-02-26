@@ -8,6 +8,7 @@ use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Entity\Annonce;
+use App\Repository\AnnonceRepository as Repo;
 
 class AnnonceController extends AbstractController
 {
@@ -51,4 +52,16 @@ class AnnonceController extends AbstractController
         $form = $form->createView();
         return $this->render("annonce/form.html.twig", compact("form"));
     }
+
+
+    /**
+     * @Route("/afficher/annonce/{id}", name="annonce_afficher")
+     */
+    public function afficher(Repo $repo, int $id)
+    {
+        $annonce = $repo->find($id);
+
+        return $this->render("annonce/fiche.html.twig", compact("annonce"));
+    }
+
 }

@@ -16,6 +16,10 @@
             </div>
             
             <div class="column is-half">
+                {# {% if form.photo.photo1 %}
+                <img src="{{ dossier_images_annonces ~ form.photo.photo1 }}">
+                {% endif %} #}
+                {{ dump(form.photo)}}
                 {{ form_row(form.photo1) }}
                 {{ form_row(form.photo2) }}
                 {{ form_row(form.photo3) }}
