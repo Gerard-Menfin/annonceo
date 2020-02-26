@@ -56,7 +56,7 @@ class AccueilController extends AbstractController
         
 
         $categories = $catRepo->findAll();
-        $membres = $membreRepo->findAll();
+        $membres = $membreRepo->findByRole("ROLE_USER");
         $regions = $annRepo->findRegions();
         return $this->render('accueil/index.html.twig', compact("categories", "membres", "annonces", "regions", "prix_choisi", "ville_choisie", "membre_choisi", "categorie_choisie"));
     }

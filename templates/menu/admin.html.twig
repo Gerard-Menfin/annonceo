@@ -4,7 +4,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="">
-                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+                <img src="{{ url_dossier_images }}logo.jpg" width="112" height="28">
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -16,36 +16,29 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{{path("accueil") }}">
-                    Accueil
-                </a>
+                <a class="navbar-item" href="{{path("accueil") }}">Accueil</a>
 
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                    Catégorie
-                    </a>
+                    <a class="navbar-link">Membre</a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{{ path('categorie_add') }}">
-                            Ajouter
-                        </a>
-                        <a class="navbar-item">
-                            Liste
-                        </a>
+                        <a class="navbar-item" href="{{ path("membre_list") }}">Liste  </a>
+                        <a class="navbar-item" href="{{ path('membre_add')  }}">Ajouter</a>
                     </div>
                 </div>
 
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                    Annonce
-                    </a>
-
+                    <a class="navbar-link">Catégorie</a>
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{{ path('annonce_add') }}">
-                            Ajouter
-                        </a>
-                        <a class="navbar-item">
-                            Liste
-                        </a>
+                        <a class="navbar-item" href="{{ path("categorie_list") }}">Liste  </a>
+                        <a class="navbar-item" href="{{ path('categorie_add')  }}">Ajouter</a>
+                    </div>
+                </div>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Annonce</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="{{ path("annonce_list") }}">Liste  </a>
+                        <a class="navbar-item" href="{{ path('annonce_add')  }}">Ajouter</a>
                     </div>
                 </div>
             </div>
@@ -53,9 +46,7 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light" href="{{ path("app_logout") }}">
-                            Déconnexion
-                        </a>
+                        <a class="button is-light" href="{{ path("app_logout") }}">Déconnexion</a>
                     </div>
                 </div>
             </div>

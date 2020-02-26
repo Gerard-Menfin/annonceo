@@ -32,7 +32,23 @@ class MembreController extends AbstractController
         return $this->render('membre/profil.html.twig', compact("mes_annonces"));
     }
 
-    
+
+    /**
+     * @Route("/membre/ajouter", name="membre_add")
+     */
+    public function add(Request $rq, EMI $em)
+    {
+        # code...
+    }
+
+    /**
+     * @Route("/membre/liste", name="membre_list")
+     */
+    public function list(Request $rq, EMI $em)
+    {
+        # code...
+    }
+
     /**
      * @Route("/profil/annonces/ajouter", name="nouvelle_annonce")
      */

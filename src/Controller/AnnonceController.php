@@ -8,6 +8,7 @@ use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Entity\Annonce;
+use App\Repository\AnnonceRepository as Repo;
 
 class AnnonceController extends AbstractController
 {
@@ -19,6 +20,17 @@ class AnnonceController extends AbstractController
 
         return $this->render('annonce/list.html.twig', []);
     }
+
+    /**
+     * @Route("/annonce/liste", name="annonce_list")
+     */
+    public function list(Request $rq, EMI $em, Repo $repo )
+    {
+        $annonces = $repo->findAll();
+        return $this->render('annonce/list.html.twig', compact("annonces"));
+    }
+
+
 
     /**
      * @Route("/annonce/ajouter", name="annonce_add")
