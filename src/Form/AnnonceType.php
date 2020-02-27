@@ -15,11 +15,7 @@ class AnnonceType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if(isset($options["data"])){
-            $photos = $options["data"]->getPhoto();
-        } else {
-            $photos = new Photo;
-        }
+
         $builder
             ->add('titre')
             ->add('description_courte')
@@ -29,21 +25,12 @@ class AnnonceType extends AbstractType
             ->add('ville')
             ->add('cp')
             ->add('pays')
-            ->add("photo1", Input\FileType::class, [ "label" => "1ère photo", "mapped" => false,  "required" => false, "attr" => [ "value" => $photos->getPhoto1() ] ])
+            
+            ->add("photo1", Input\FileType::class, [ "label" => "1ère photo", "mapped" => false,  "required" => false ])
             ->add("photo2", Input\FileType::class, [ "label" => "2ième photo", "mapped" => false, "required" => false ])
             ->add("photo3", Input\FileType::class, [ "label" => "3ième photo", "mapped" => false, "required" => false ])
             ->add("photo4", Input\FileType::class, [ "label" => "4ième photo", "mapped" => false, "required" => false ])
             ->add("photo5", Input\FileType::class, [ "label" => "5ième photo", "mapped" => false, "required" => false ])
-
-            // ->add('photo', Input\CollectionType::class, [
-            //     'entry_type'    => PhotoType::class,
-            //     'entry_options' => ['label' => "Photos"],
-            // ])
-                                                
-            // ->add('photo', EntityType::class, [ 
-            //     "class"        => Photo::class,
-            //     "choice_label" => "id"
-            // ])
 
             ->add('categorie', EntityType::class, [ 
                 "class"         => Categorie::class,
