@@ -1,20 +1,59 @@
-{% extends 'base.html.twig' %}
+{% extends app.user ? "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="columns">
+        <aside class="column is-one-quarter">
+            <form method="POST">
+                <div>
+                    <label>Catégorie</label>
+                    <select name="categorie">
+                        <option value="">Toutes les catégories</option>
+                        {% for cat in categories %}
+                                <option value='{{ cat.id }}' {{ categorie_choisie == cat.id ? "selected" : ""  }}>  {{ cat.titre }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <div>
+                    <label>Régions</label>
+                    <select name="region">
+                        <option value="">Toutes les régions</option>
+                        {% for region in regions %}
+                                <option value='{{ region.ville }}' {{ ville_choisie == region.ville ? "selected" : ""  }} >  {{ region.ville }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div>
+                    <label>Membres</label>
+                    <select name="membre">
+                        <option value="">Tous les membres</option>
+                        {% for m in membres %}
+                                <option value='{{ m.id }}' {{ membre_choisi == m.id ? "selected" : ""  }}>  {{ m.pseudo }} </option>
+                        {% endfor %}                                
+                    </select>
+                </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/annonceo/src/Controller/AccueilController.php'|file_link(0) }}">src/Controller/AccueilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/annonceo/templates/accueil/index.html.twig'|file_link(0) }}">templates/accueil/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <div>
+                    <label>Prix >=<output id="prixAffiche">{{ prix_choisi }}</output></label><br>
+                    0<input type=range id="prix" name="prix" onchange="prixAffiche.innerHTML=this.value" min=0 max=100000 step=1000 value={{ prix_choisi }}>100.000
+                    
+                </div>
+                
+                <button>Filtrer</button>
+            </form>
+        </aside>
+
+        <section class="column">
+            {% if annonces|length %}
+                {% for ann in annonces %}
+                    {% include "annonce/vignette.html.twig" with { "annonce": ann } %}
+                {% endfor %}
+            {% else %}
+                <p>Aucune annonce ne correspond aux critères demandés</p>
+            {% endif %}    
+        </section>
+    </main>
 {% endblock %}

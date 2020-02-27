@@ -8,22 +8,15 @@
         <thead>
 
         </thead>
-
-        <tbody>
-            {% for categorie in categories %}
-                <tr>
-                <td>{{ categorie.titre  }}</td>
-                <td>{{ categorie.motscles  }}</td>
-                <td>
-                {% for champ in categorie %}
-                    <td>{{categorie.champ}}</td>
-                {% endfor %}
-                </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-
+    
+        <table class="table">
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.titre }}</td>
+                <td>{{ categorie.motscles }}</td>
+            </tr>
+        {% endfor %}
         <tfoot></tfoot>
     </table>
-
+    
 {% endblock %}

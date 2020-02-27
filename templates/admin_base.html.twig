@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags("app") }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block nav %}
+
+        {% endblock %}
+
+        {# MESSAGES #}
+        {% for type, message in app.flashes %}
+            <div class="has-background-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
+        {% block body %}
+            <main class="columns">
+                <aside class="column is-one-quarter">
+                    <form method="POST">
+                        <div>
+                            <label>Catégorie</label>
+                            <select name="categorie">
+                                <option value="">Toutes les catégories</option>
+                                {% for cat in categories %}
+                                        <option value='{{ cat.id }}'>  {{ cat.titre }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div>
+                            <label>Régions</label>
+                            <select name="region">
+                                <option value="">Toutes les régions</option>
+                                {% for region in regions %}
+                                        <option value='{{ region.ville }}'>  {{ region.ville }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label>Membres</label>
+                            <select name="membre">
+                                <option value="">Tous les membres</option>
+                                {% for m in membres %}
+                                        <option value='{{ m.id }}'>  {{ m.pseudo }} </option>
+                                {% endfor %}                                
+                            </select>
+                        </div>
+
+                        <div>
+                            <label>Prix</label>
+                            <input type=range name="prix" min=0 max=10000>
+                        </div>
+                        
+                        <button>Filtrer</button>
+                    </form>
+                </aside>
+
+                <section class="column">
+                    {% for ann in annonces %}
+                        <p>{{ ann.titre }}</p>
+                    {% endfor %}                                
+                </section>
+            </main>
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags("app") }}
+        {% endblock %}
+    </body>
+</html>

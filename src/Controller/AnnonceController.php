@@ -22,6 +22,17 @@ class AnnonceController extends AbstractController
     }
 
     /**
+     * @Route("/annonce/liste", name="annonce_list")
+     */
+    public function list(Request $rq, EMI $em, Repo $repo )
+    {
+        $annonces = $repo->findAll();
+        return $this->render('annonce/list.html.twig', compact("annonces"));
+    }
+
+
+
+    /**
      * @Route("/annonce/ajouter", name="annonce_add")
      */
     public function form(Request $rq, EMI $em, AR $ar){

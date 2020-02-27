@@ -1,0 +1,35 @@
+{% extends "menu/connecte.html.twig" %}
+
+{% block body %}
+    <div class="columns is-centered section">
+        <div class="column is-three-quarters box">
+            <h1 class="title has-text-primary has-text-centered">{% block form_titre %}Nouvelle annonce{% endblock %}</h1>
+
+    {{ form_start(form) }}
+        <div class="columns">    
+            <div class="column is-half">
+                {{ form_row(form.titre) }}
+                {{ form_row(form.description_courte)}}
+                {{ form_row(form.description_longue)}}
+                {{ form_row(form.prix)}}
+                {{ form_row(form.categorie)}}
+            </div>
+            
+            <div class="column is-half">
+                {{ form_row(form.photo1) }}
+                {{ form_row(form.photo2) }}
+                {{ form_row(form.photo3) }}
+                {{ form_row(form.photo4) }}
+                {{ form_row(form.photo5) }}
+
+                {{ form_row(form.adresse) }}
+                {{ form_row(form.cp) }}
+                {{ form_row(form.ville) }}
+                {{ form_row(form.pays) }}
+            </div>
+
+        </div>
+        {{ form_row(form.ajouter, { "attr": { "class" : "button is-primary" } }) }}
+    {{ form_end(form) }}
+    </div></div>
+{% endblock %}

@@ -69,12 +69,6 @@ class Annonce
     private $commentaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="annonces")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $membre;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Photo", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -85,6 +79,12 @@ class Annonce
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $membre;
 
     public function __construct()
     {
@@ -235,18 +235,6 @@ class Annonce
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(?Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
-
     public function getPhoto(): ?Photo
     {
         return $this->photo;
@@ -267,6 +255,18 @@ class Annonce
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?Membre $membre): self
+    {
+        $this->membre = $membre;
 
         return $this;
     }

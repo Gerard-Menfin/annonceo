@@ -64,4 +64,11 @@ class MembreRepository extends ServiceEntityRepository implements PasswordUpgrad
         ;
     }
     */
+
+    public function findByRole($role){
+        return $this
+            ->createQueryBuilder('m')
+            ->where("m.roles LIKE '%$role%'")
+            ->getQuery()->getResult();
+    }
 }

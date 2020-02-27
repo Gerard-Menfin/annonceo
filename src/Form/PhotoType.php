@@ -6,6 +6,7 @@ use App\Entity\Photo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type as Input;
 
 class PhotoType extends AbstractType
 {
@@ -14,7 +15,7 @@ class PhotoType extends AbstractType
         $builder
             ->add('photo1', Input\FileType::class, [
                 'label' => '1ere photo',
-                'required' => false,
+                'required' => true,
                 ])
             ->add('photo2', Input\FileType::class, [
                 'label' => '2eme photo',
@@ -25,11 +26,11 @@ class PhotoType extends AbstractType
                 'required' => false,
                 ])
             ->add('photo4', Input\FileType::class, [
-                'label' => '2eme photo',
+                'label' => '4eme photo',
                 'required' => false,
                 ])
             ->add('photo5', Input\FileType::class, [
-                'label' => '3eme photo',
+                'label' => '5eme photo',
                 'required' => false,
                 ])
 

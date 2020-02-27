@@ -4,3 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     form_themes: ["form_bulma_theme.html.twig"]
+
+    globals:
+        dossier_images_annonces: "/assets/img/annonces/"
+        url_dossier_images: "/assets/img/"
