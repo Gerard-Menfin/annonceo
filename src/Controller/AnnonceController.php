@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Entity\Annonce;
 use App\Repository\AnnonceRepository as Repo;
+use App\Repository\NoteRepository;
 
 class AnnonceController extends AbstractController
 {
@@ -57,10 +58,10 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/afficher/annonce/{id}", name="annonce_afficher")
      */
-    public function afficher(Repo $repo, int $id)
+    public function afficher(Repo $repo, NoteRepository $nr, int $id)
     {
         $annonce = $repo->find($id);
-
+        $moyenne = $nr->noteMoyenneRecue($annonce->getMembre()->getId());
         return $this->render("annonce/fiche.html.twig", compact("annonce"));
     }
 

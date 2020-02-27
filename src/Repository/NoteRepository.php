@@ -19,6 +19,29 @@ class NoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Note::class);
     }
 
+    /**
+     * @param id_membre : integer
+     * @return float | null
+     */
+    public function noteMoyenneRecue(int $id_membre){
+        $requete = $this->createQueryBuilder("n")
+                            ->select("AVG(n.note)")
+                            ->join("n.membre_note", "m")
+                            ->where("m.id = :id")
+                            ->groupBy("m.id")
+                            ->setParameter("id", $id_membre)
+                            ->getQuery()
+                            ->getResult();
+        return !empty($requete) ? $requete[0][1] : null;
+        /*
+        SELECT AVG(n.note)
+        FROM note n JOIN membre m ON n.membre_note_id = m.id
+        WHERE m.id = $id_membre
+        GROUP BY m.id
+        */
+    }
+
+
     // /**
     //  * @return Note[] Returns an array of Note objects
     //  */

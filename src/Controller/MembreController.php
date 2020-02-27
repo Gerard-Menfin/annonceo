@@ -44,6 +44,7 @@ class MembreController extends AbstractController
             if($form->isValid()){
                 $nvlAnnonce = $form->getData();
                 $album = new Photo;
+
                 $destination = $this->getParameter("dossier_images_annonces");
                 for($i=1; $i<=5; $i++){
                     $champ = "photo" . $i;
@@ -55,6 +56,7 @@ class MembreController extends AbstractController
                         $photoUploadee->move($destination, $nouveauNom);
                         $setter = "setPhoto$i";
                         $album->$setter($nouveauNom);
+                    
                     }
                 }
                 $em->persist($album);

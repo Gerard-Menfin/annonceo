@@ -35,10 +35,10 @@ class AnnonceType extends AbstractType
             ->add("photo4", Input\FileType::class, [ "label" => "4ième photo", "mapped" => false, "required" => false ])
             ->add("photo5", Input\FileType::class, [ "label" => "5ième photo", "mapped" => false, "required" => false ])
 
-            ->add('photo', Input\CollectionType::class, [
-                'entry_type'    => PhotoType::class,
-                'entry_options' => ['label' => "Photos"],
-            ])
+            // ->add('photo', Input\CollectionType::class, [
+            //     'entry_type'    => PhotoType::class,
+            //     'entry_options' => ['label' => "Photos"],
+            // ])
                                                 
             // ->add('photo', EntityType::class, [ 
             //     "class"        => Photo::class,
