@@ -1,0 +1,14 @@
+{% extends "menu/admin.html.twig" %}
+
+{% block body %}
+    
+    <table class="table">
+    {% for annonce in annonces %}
+        <tr>
+            <td>{{ annonce.titre }}</td>
+            <td>{{ annonce.membre.pseudo }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    
+{% endblock %}

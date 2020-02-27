@@ -43,6 +43,7 @@ class MembreRepository extends ServiceEntityRepository implements PasswordUpgrad
         return $resultat;
     }
 
+
     // /**
     //  * @return Membre[] Returns an array of Membre objects
     //  */

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +17,19 @@ class CategorieController extends AbstractController
     public function index(CR $cr)
     {
         $categories = $cr->findAll();
+        return $this->render('categorie/index.html.twig', compact("categories"));
+    }
+
+    /**
+     * @Route("/categorie/liste", name="categorie_list")
+     */
+    public function list(CR $cr)
+    {
+        $categories = $cr->findAll();
+        // Récupération des propriétés d'un objet Categorie (PB : récupère aussi les relations (i.e. annonces))
+        $champs = array_keys((array)$categories[0]);
+        $champs = array_map(function($val){ return str_replace(Categorie::class, "", $val); }, $champs);
+        
         return $this->render('categorie/list.html.twig', compact("categories"));
     }
 
@@ -76,13 +88,45 @@ class CategorieController extends AbstractController
         }
 
     }
+
     /**
      * @Route("categorie/modify/{id}", name="categorie_modify")
      */
-    public function modify(Request $rq, CR $repo, $id)
+    public function modify(Request $rq, CR $repo, EMI $em, $id)
     {
         $categorieAmodifier = $repo->find($id);
         $form = $this->createForm(CategorieType::class, $categorieAmodifier);
+        $form->handleRequest($rq);
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                $em->persist($categorieAmodifier);
+                $em->flush();
+                $this->addFlash("success", "Catégorie modifiée");
+                return $this->redirectToRoute("categorie");
+                
+            }
+            else{
+                $this->addFlash("error", "Formulaire incomplet");
+            }
+        }
+
+        return $this->render('categorie/form.html.twig', [
+            'form' => $form->createView(),
+        ]); 
+    }
+
+
+
+
+
+
+    /**
+     * @Route("categorie/erase/{id}", name="categorie_erase")
+     */
+    public function erase(Request $rq, CR $repo, $id)
+    {
+        $categorieAsupprimer = $repo->find($id);
+        $form = $this->createForm(CategorieType::class, $categorieAsupprimer);
         return $this->render('categorie/form.html.twig', [
             'form' => $form->createView(),
         ]); 

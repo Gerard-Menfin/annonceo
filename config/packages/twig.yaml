@@ -7,3 +7,4 @@ twig:
 
     globals:
         dossier_images_annonces: "/assets/img/annonces/"
+        url_images: "/assets/img/"
