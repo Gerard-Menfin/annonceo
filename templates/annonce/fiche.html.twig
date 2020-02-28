@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-{% extends app.user ? "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
-
-{% block body %}
-    {{ annonce.titre }}
-
-    {% for img in annonce.photo %}
-        <img src={{ dossier_images_annonces ~ img }}
-    {% endfor %}
-=======
 {% extends "menu/visiteur.html.twig" %}
 
 {% block body %}
@@ -53,5 +43,4 @@
         <a href="{{ path("attribuer_note", { pseudo: annonce.membre.pseudo }) }}">Commenter / Noter</a>
         <a href="" class="is-pulled-right">Retour vers les annonces</a>
     </div>
->>>>>>> 0227
 {% endblock %}

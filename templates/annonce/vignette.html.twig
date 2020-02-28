@@ -3,19 +3,15 @@
         <img src="{{ dossier_images_annonces ~ annonce.photo.photo1 }}" class="vignette">
     </div>
     <div class="column">
-<<<<<<< HEAD
-        <h4>{{ annonce.titre|upper }} <a href="{{ path("annonce_modify", { id: annonce.id }) }}"><span class="is-pulled-right fa fa-pencil"></span></a></h4>
-=======
         <h4>
             <a href="{{ path("annonce_afficher", { id: annonce.id }) }}">{{ annonce.titre|upper }} </a>
+            {% if annonce.membre == app.user %}
             <a class="is-pulled-right" 
-                {% if annonce.membre == app.user %}
                     href="{{ path("modifier_annonce", { id: annonce.id }) }}">
-                {% endif %}
                 <i class="fa fa-pen"></i>
             </a>
+            {% endif %}
         </h4>
->>>>>>> 0227
         <p>{{ annonce.descriptioncourte }}</p>
         <br>
         <p><span>{{ annonce.membre.pseudo }}</span> <span class="is-pulled-right">{{ annonce.prix }} €</span></p>

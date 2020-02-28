@@ -30,29 +30,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
-<<<<<<< HEAD
-    // DED
-    private $secu;
-
- 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, Security $secu)
-=======
     private $security;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, Security $security)
->>>>>>> 0227
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
-<<<<<<< HEAD
-        //DED
-        $this->secu = $secu;
-
-=======
         $this->security = $security;
->>>>>>> 0227
     }
 
     public function supports(Request $request)
@@ -114,18 +100,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-<<<<<<< HEAD
-        
-        // DED
-        $route = $this->secu->isGranted('ROLE_ADMIN') ? "admin" : "profil";
-    
-        return new RedirectResponse($this->urlGenerator->generate($route));
-=======
         if($this->security->isGranted("ROLE_ADMIN"))
             return new RedirectResponse($this->urlGenerator->generate("admin"));
         else
             return new RedirectResponse($this->urlGenerator->generate("profil"));
->>>>>>> 0227
     }
 
     protected function getLoginUrl()

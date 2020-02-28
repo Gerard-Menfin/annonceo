@@ -39,13 +39,7 @@ class CategorieController extends AbstractController
     public function form()
     {
         $form = $this->createForm(CategorieType::class);
-<<<<<<< HEAD
         return $this->render('categorie/form.html.twig', [ 'form' => $form->createView() ]); 
-=======
-        return $this->render('categorie/form.html.twig', [
-            'form' => $form->createView(),
-        ]); 
->>>>>>> 0227
     }
 
     /**
