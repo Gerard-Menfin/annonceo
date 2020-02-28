@@ -20,7 +20,6 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
 
-
     // créer une méthode pour récupérer la liste des villes (sans doublon) de la table Annonce
     /**
      * @return Annonce[] Returns an array of Annonce objects
@@ -40,7 +39,39 @@ class AnnonceRepository extends ServiceEntityRepository
         $requete = $entityManager->createQuery("SELECT DISTINCT a.ville FROM App\Entity\Annonce a ORDER BY a.ville");
         return $requete->getResult();
     }
+   
     
+    /**
+     * Retourne les 5 membres ayant le plus d'annonces
+     */
+    public function findTop5MembresActifs(){
+        return $this->createQueryBuilder("a")
+                    ->select("m, COUNT(*) nb")
+                    ->join("a.membre", "m")
+                    ->groupBy("m.id")
+                    ->orderBy("nb", "DESC")
+                    ->setMaxResults(5)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findTop5AnnoncesAnciennes(){
+        return $this->createQueryBuilder("a")
+                    ->orderBy("a.date_enregistrement", "ASC")
+                    ->setMaxResults(5)
+                    ->getQuery()->getResult();
+    }
+
+
+    public function findTop5Categories(){
+        return $this->createQueryBuilder("a")
+                    ->select("c.titre, COUNT(c.id) nb")
+                    ->join("a.categorie", "c")
+                    ->groupBy("c.id")
+                    ->orderBy("nb", "DESC")
+                    ->setMaxResults(5)
+                    ->getQuery()->getResult();
+    }
 
     // /**
     //  * @return Annonce[] Returns an array of Annonce objects

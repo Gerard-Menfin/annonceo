@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AccueilController extends AbstractController
 {
+
     public function index(Request $rq, AR $annRepo, CR $catRepo, MR $membreRepo)
     {
         $categorie_choisie = null;
@@ -51,10 +52,20 @@ class AccueilController extends AbstractController
             }
         }
         else {
-            $annonces = $annRepo->findAll();
+            $mot = $rq->query->get("recherche");
+            if($mot){
+                $cats = $catRepo->recherche($mot);
+                $annonces = [];
+                foreach($cats as $cat){
+                   foreach ($cat->getAnnonces() as $annonceCategorie ) {
+                       $annonces[] = $annonceCategorie;
+                   }
+                }      
+            } else{
+                $annonces = $annRepo->findAll();
+            }
         }
         
-
         $categories = $catRepo->findAll();
         $membres = $membreRepo->findByRole("ROLE_USER");
         $regions = $annRepo->findRegions();
