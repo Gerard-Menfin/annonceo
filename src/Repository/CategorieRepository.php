@@ -30,7 +30,7 @@ class CategorieRepository extends ServiceEntityRepository
         $resultat = $this->createQueryBuilder("c")
                             ->where($where);
         foreach ($mots as $indice => $mot) {
-            $resultat->setParameter("mot$indice", $mot);   
+            $resultat->setParameter("mot$indice", "%$mot%");   
         }
                                 
         return $resultat->getQuery()->getResult();
