@@ -41,6 +41,20 @@ class NoteRepository extends ServiceEntityRepository
         */
     }
 
+    public function findTop5MembresNotes(){
+        $resultat = $this->createQueryBuilder("n")
+                         ->select("m.id, m.pseudo, AVG(n.note) moyenne, COUNT(m.id) nb")
+                         ->join("n.membre_note", "m")
+                         ->groupBy("m.id")
+                         ->orderBy("moyenne", "DESC")
+                         ->setMaxResults(5)
+                         ->getQuery()->getResult();
+        return $resultat;
+
+    }
+
+
+
 
     /*
     public function findByExampleField($value)
