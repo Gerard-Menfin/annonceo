@@ -1,7 +1,9 @@
-{% extends 'formulaire.html.twig' %}
+{% extends 'admin/formulaire.html.twig' %}
 
 {% block title %}Formulaire Annonce{% endblock %}
 
 {% block form %}
     {{ form(form) }}
+
+    {{ form_row("ajouter", { label: "Modif" })}}
 {% endblock %}

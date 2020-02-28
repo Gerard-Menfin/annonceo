@@ -8,12 +8,17 @@ use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
 use App\Entity\Annonce;
+<<<<<<< HEAD
 use App\Repository\AnnonceRepository as AR;
+=======
+use App\Repository\AnnonceRepository as Repo;
+use App\Repository\NoteRepository as NR;
+>>>>>>> 0227
 
 class AnnonceController extends AbstractController
 {
     /**
-     * @Route("/annonce", name="annonce")
+     * @Route("/annonce", name="annonce_list")
      */
     public function index(Request $rq, EMI $em, AR $ar)
     {
@@ -64,6 +69,7 @@ class AnnonceController extends AbstractController
         return $this->render("annonce/form.html.twig", compact("form"));
     }
 
+<<<<<<< HEAD
     /**
      * 
      */
@@ -76,4 +82,19 @@ class AnnonceController extends AbstractController
     {
         # code...
     }
+=======
+    
+
+    /**
+     * @Route("/afficher/annonce/{id}", name="annonce_afficher")
+     */
+    public function afficher(Repo $repo, NR $nr, int $id)
+    {
+        $annonce = $repo->find($id);
+        $moyenne = $nr->noteMoyenneRecue($annonce->getMembre()->getId());
+
+        return $this->render("annonce/fiche.html.twig", compact("annonce", "moyenne"));
+    }
+
+>>>>>>> 0227
 }

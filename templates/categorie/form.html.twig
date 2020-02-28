@@ -1,4 +1,4 @@
-{% extends 'formulaire.html.twig' %}
+{% extends 'admin/formulaire.html.twig' %}
 
 
 {% block form_titre %} Ajouter une catégorie {% endblock %}
@@ -6,7 +6,7 @@
     <section class="section has-background-white-ter">
         {{ form_start(form) }}
             {{ form_row(form.titre) }}
-            {{ form_row(form.motscles) }}
+            {{ form_row(form.motscles, { attr: { class: "content" } }) }}
             {{ form_row(form.ajouter, { "attr": {"class" : "button is-primary is-fullwidth"} })}}
         {{ form_end(form)}}
     </section>

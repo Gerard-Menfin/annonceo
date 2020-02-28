@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends app.user ? "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
 
 {% block body %}
@@ -6,4 +7,51 @@
     {% for img in annonce.photo %}
         <img src={{ dossier_images_annonces ~ img }}
     {% endfor %}
+=======
+{% extends "menu/visiteur.html.twig" %}
+
+{% block body %}
+    <h1>{{ annonce.titre|upper }} <a href="" class="button is-pulled-right">Contacter {{ annonce.membre.pseudo }}</a></h1>
+    <div class="columns">
+        <img src="{{ dossier_images_annonces ~ annonce.photo.photo1 }}" class="column is-half">
+        <div class="column is-half">
+            <h3>Description</h3>
+            <p>{{ annonce.descriptionlongue }}</p>
+        </div>
+    </div>
+
+    <div class="columns" >
+        <span class="column">
+            <i class="fa fa-calendar-alt"></i>
+            Date de publication : {{ annonce.dateenregistrement|date("d/m/Y") }}
+        </span>
+        
+        <span class="column">
+            <i class="fa fa-user"></i>
+            {{ annonce.membre.pseudo }} {{ moyenne }}<i class="fa fa-star"></i>
+        </span>  
+
+        <span class="column">
+            <i class="fa fa-euro-sign"></i>
+            {{ annonce.prix }}
+        </span>
+
+        <span class="column">
+            <i class="fa fa-map-marker-alt"></i>
+            {{ annonce.adresse ~ " " ~ annonce.cp  ~ " " ~ annonce.ville }}
+        </span>
+    </div>
+
+    <div class="columns">
+        <img src="{{ dossier_images_annonces ~ annonce.photo.photo2 }}" class="column">
+        <img src="{{ dossier_images_annonces ~ annonce.photo.photo3 }}" class="column">
+        <img src="{{ dossier_images_annonces ~ annonce.photo.photo4 }}" class="column">
+        <img src="{{ dossier_images_annonces ~ annonce.photo.photo5 }}" class="column">
+    </div>
+
+    <div>
+        <a href="{{ path("attribuer_note", { pseudo: annonce.membre.pseudo }) }}">Commenter / Noter</a>
+        <a href="" class="is-pulled-right">Retour vers les annonces</a>
+    </div>
+>>>>>>> 0227
 {% endblock %}

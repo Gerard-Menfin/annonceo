@@ -1,0 +1,18 @@
+Redirection après authentification selon ROLE
+
+Formulaire pour modifier
+    utilisateur 
+    admin
+
+Statistique
+
+
+
+
+Formulaire : mettre les contraintes
+             Faire un autre FormType pour les formulaires utilisateur/administrateur
+
+
+
+Rappel :
+    php bin/console debug:router

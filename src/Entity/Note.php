@@ -32,16 +32,17 @@ class Note
     private $date_enregistrement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="mes_notes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $membre_note;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="notes_donnees")
      * @ORM\JoinColumn(nullable=false)
      */
     private $membre_notant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Membre", inversedBy="notes_recues")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $membre_note;
+
 
     public function getId(): ?int
     {
@@ -84,6 +85,18 @@ class Note
         return $this;
     }
 
+    public function getMembreNotant(): ?Membre
+    {
+        return $this->membre_notant;
+    }
+
+    public function setMembreNotant(?Membre $membre_notant): self
+    {
+        $this->membre_notant = $membre_notant;
+
+        return $this;
+    }
+
     public function getMembreNote(): ?Membre
     {
         return $this->membre_note;
@@ -96,15 +109,4 @@ class Note
         return $this;
     }
 
-    public function getMembreNotant(): ?Membre
-    {
-        return $this->membre_notant;
-    }
-
-    public function setMembreNotant(?Membre $membre_notant): self
-    {
-        $this->membre_notant = $membre_notant;
-
-        return $this;
-    }
 }

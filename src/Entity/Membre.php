@@ -72,9 +72,21 @@ class Membre implements UserInterface
      */
     private $annonces;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="membre_notant", orphanRemoval=true)
+     */
+    private $notes_donnees;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="membre_note")
+     */
+    private $notes_recues;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->notes_donnees = new ArrayCollection();
+        $this->notes_recues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -252,6 +264,68 @@ class Membre implements UserInterface
             // set the owning side to null (unless already changed)
             if ($annonce->getMembre() === $this) {
                 $annonce->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotesDonnees(): Collection
+    {
+        return $this->notes_donnees;
+    }
+
+    public function addNotesDonnee(Note $notesDonnee): self
+    {
+        if (!$this->notes_donnees->contains($notesDonnee)) {
+            $this->notes_donnees[] = $notesDonnee;
+            $notesDonnee->setMembreNotant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotesDonnee(Note $notesDonnee): self
+    {
+        if ($this->notes_donnees->contains($notesDonnee)) {
+            $this->notes_donnees->removeElement($notesDonnee);
+            // set the owning side to null (unless already changed)
+            if ($notesDonnee->getMembreNotant() === $this) {
+                $notesDonnee->setMembreNotant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotesRecues(): Collection
+    {
+        return $this->notes_recues;
+    }
+
+    public function addNotesRecue(Note $notesRecue): self
+    {
+        if (!$this->notes_recues->contains($notesRecue)) {
+            $this->notes_recues[] = $notesRecue;
+            $notesRecue->setMembreNote($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotesRecue(Note $notesRecue): self
+    {
+        if ($this->notes_recues->contains($notesRecue)) {
+            $this->notes_recues->removeElement($notesRecue);
+            // set the owning side to null (unless already changed)
+            if ($notesRecue->getMembreNote() === $this) {
+                $notesRecue->setMembreNote(null);
             }
         }
 

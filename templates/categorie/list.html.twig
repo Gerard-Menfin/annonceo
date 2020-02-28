@@ -3,20 +3,27 @@
 {% block title %}Catégories{% endblock %}
 
 {% block body %}
-
-    <table class="table is-bordered is-striped">
+    <table class="table">
         <thead>
-
+            <th>Titre</th>
+            <th>Mots-Clés</th>
+            <th colspan=2>Actions</th>
         </thead>
-    
-        <table class="table">
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.titre }}</td>
-                <td>{{ categorie.motscles }}</td>
-            </tr>
-        {% endfor %}
-        <tfoot></tfoot>
+        
+    {% for categorie in categories %}
+        <tr>
+            <td>{{ categorie.titre }}</td>
+            <td>{{ categorie.motscles }}</td>
+            <td>
+                <a class="fa fa-pen" href={{ path("categorie_modify", { id: categorie.id }) }}></a>
+            </td>
+            <td>
+                <a  href={{ path("categorie_erase", { id: categorie.id }) }}>
+                    <i class="fa fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
     </table>
     
 {% endblock %}

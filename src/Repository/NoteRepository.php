@@ -25,7 +25,11 @@ class NoteRepository extends ServiceEntityRepository
                         ->leftJoin('n.membre_note', 'm')
                         ->where("m.id = :id")
                         ->setParameter("id", $id)
+<<<<<<< HEAD
                         ->groupBy('m.id')->getQuery()->getResult();
+=======
+                         ->groupBy('m.id')->getQuery()->getResult();
+>>>>>>> 0227
         return $requete;
     }
 
