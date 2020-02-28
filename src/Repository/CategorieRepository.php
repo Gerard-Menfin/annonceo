@@ -19,13 +19,21 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
-    public function recherche($mot)
+    public function recherche($phrase)
     {
-        return $this->createQueryBuilder("c")
-                    ->where("c.titre LIKE :mot OR c.motscles LIKE :mot ")
-                    ->setParameter("mot", "%$mot%")
-                    ->getQuery()
-                    ->getResult();
+        $mots = explode(" ", $phrase);
+        $where = "";
+        foreach ($mots as $indice => $mot) {
+            $where .= ($where ? " OR " : "") . "c.titre LIKE :mot$indice OR c.motscles LIKE :mot$indice"; 
+        }
+        
+        $resultat = $this->createQueryBuilder("c")
+                            ->where($where);
+        foreach ($mots as $indice => $mot) {
+            $resultat->setParameter("mot$indice", $mot);   
+        }
+                                
+        return $resultat->getQuery()->getResult();
     }
 
     // /**
