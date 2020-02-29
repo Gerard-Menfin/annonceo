@@ -14,6 +14,7 @@ import '../css/app.scss';
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
 
+/* Pour l'affichage de l'image juste après le téléchargement depuis un input file */
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -29,20 +30,96 @@ function readURL(input) {
 }
 
 window.addEventListener("load", function() {
+    /* affichage image après téléchargement */
+    if(document.querySelector("[id ^= 'annonce_photo']")){
+        document.querySelector("#annonce_photo1").addEventListener("change", function(){
+            readURL(this);
+        });
+        document.querySelector("#annonce_photo2").addEventListener("change", function(){
+            readURL(this);
+        });
+        document.querySelector("#annonce_photo3").addEventListener("change", function(){
+            readURL(this);
+        });
+        document.querySelector("#annonce_photo4").addEventListener("change", function(){
+            readURL(this);
+        });
+        document.querySelector("#annonce_photo5").addEventListener("change", function(){
+            readURL(this);
+        });
+    }
+    /* fin (affichage image) */
+
+    /* Bulma - Slider */
+    // Find output DOM associated to the DOM element passed as parameter
+    function findOutputForSlider( element ) {
+        var idVal = element.id;
+        outputs = document.getElementsByTagName( 'output' );
+        for( var i = 0; i < outputs.length; i++ ) {
+        if ( outputs[ i ].htmlFor == idVal )
+            return outputs[ i ];
+        }
+    }
     
-    document.querySelector("#annonce_photo1").addEventListener("change", function(){
-        readURL(this);
-    });
-    document.querySelector("#annonce_photo2").addEventListener("change", function(){
-        readURL(this);
-    });
-    document.querySelector("#annonce_photo3").addEventListener("change", function(){
-        readURL(this);
-    });
-    document.querySelector("#annonce_photo4").addEventListener("change", function(){
-        readURL(this);
-    });
-    document.querySelector("#annonce_photo5").addEventListener("change", function(){
-        readURL(this);
-    });
+    function getSliderOutputPosition( slider ) {
+    // Update output position
+    var newPlace,
+        minValue;
+    
+    var style = window.getComputedStyle( slider, null );
+    // Measure width of range input
+    sliderWidth = parseInt( style.getPropertyValue( 'width' ), 10 );
+    
+    // Figure out placement percentage between left and right of input
+    if ( !slider.getAttribute( 'min' ) ) {
+        minValue = 0;
+    } else {
+        minValue = slider.getAttribute( 'min' );
+    }
+    var newPoint = ( slider.value - minValue ) / ( slider.getAttribute( 'max' ) - minValue );
+    
+    // Prevent bubble from going beyond left or right (unsupported browsers)
+    if ( newPoint < 0 ) {
+        newPlace = 0;
+    } else if ( newPoint > 1 ) {
+        newPlace = sliderWidth;
+    } else {
+        newPlace = sliderWidth * newPoint;
+    }
+    
+    return {
+        'position': newPlace + 'px'
+    }
+    }
+    
+    document.addEventListener( 'DOMContentLoaded', function () {
+    // Get all document sliders
+    var sliders = document.querySelectorAll( 'input[type="range"].slider' );
+    [].forEach.call( sliders, function ( slider ) {
+        var output = findOutputForSlider( slider );
+        if ( output ) {
+        if ( slider.classList.contains( 'has-output-tooltip' ) ) {
+            // Get new output position
+            var newPosition = getSliderOutputPosition( slider );
+    
+            // Set output position
+            output.style[ 'left' ] = newPosition.position;
+        }
+    
+        // Add event listener to update output when slider value change
+        slider.addEventListener( 'input', function( event ) {
+            if ( event.target.classList.contains( 'has-output-tooltip' ) ) {
+            // Get new output position
+            var newPosition = getSliderOutputPosition( event.target );
+    
+            // Set output position
+            output.style[ 'left' ] = newPosition.position;
+            }
+    
+            // Update output with slider value
+            output.value = event.target.value;
+        } );
+        }
+    } );
+    } );
 })
