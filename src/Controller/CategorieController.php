@@ -11,25 +11,18 @@ use App\Repository\CategorieRepository as CR;
 
 class CategorieController extends AbstractController
 {
-    /**
-     * @Route("/categorie", name="categorie")
-     */
     public function index(CR $cr)
     {
         $categories = $cr->findAll();
         return $this->render('categorie/index.html.twig', compact("categories"));
     }
 
-    /**
-     * @Route("/categorie/liste", name="categorie_list")
-     */
     public function list(CR $cr)
     {
         $categories = $cr->findAll();
         // Récupération des propriétés d'un objet Categorie (PB : récupère aussi les relations (i.e. annonces))
-        $champs = array_keys((array)$categories[0]);
-        $champs = array_map(function($val){ return str_replace(Categorie::class, "", $val); }, $champs);
-        
+        // $champs = array_keys((array)$categories[0]);
+        // $champs = array_map(function($val){ return str_replace(Categorie::class, "", $val); }, $champs);
         return $this->render('categorie/list.html.twig', compact("categories"));
     }
 
@@ -112,11 +105,6 @@ class CategorieController extends AbstractController
             'form' => $form->createView(),
         ]); 
     }
-
-
-
-
-
 
     /**
      * @Route("categorie/erase/{id}", name="categorie_erase")

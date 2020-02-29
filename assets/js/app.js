@@ -13,7 +13,7 @@ import '../css/app.scss';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
-/*
+
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -46,4 +46,3 @@ window.addEventListener("load", function() {
         readURL(this);
     });
 })
-*/
