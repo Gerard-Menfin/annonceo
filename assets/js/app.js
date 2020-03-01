@@ -11,10 +11,10 @@ import '../css/app.scss';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+//console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
 
-/* Pour l'affichage de l'image juste après le téléchargement depuis un input file */
+/* Fonction pour  l'affichage de l'image juste après le téléchargement depuis un input file */
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -28,6 +28,49 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+/* Fonctions pour les sliders Bulma */
+
+function findOutputForSlider( element ) {
+    var idVal = element.id;
+    var outputs = document.getElementsByTagName( 'output' );
+    for( var i = 0; i < outputs.length; i++ ) {
+    if ( outputs[ i ].htmlFor == idVal )
+        return outputs[ i ];
+    }
+}
+
+function getSliderOutputPosition( slider ) {
+// Update output position
+var newPlace,
+    minValue;
+
+var style = window.getComputedStyle( slider, null );
+// Measure width of range input
+sliderWidth = parseInt( style.getPropertyValue( 'width' ), 10 );
+
+// Figure out placement percentage between left and right of input
+if ( !slider.getAttribute( 'min' ) ) {
+    minValue = 0;
+} else {
+    minValue = slider.getAttribute( 'min' );
+}
+var newPoint = ( slider.value - minValue ) / ( slider.getAttribute( 'max' ) - minValue );
+
+// Prevent bubble from going beyond left or right (unsupported browsers)
+if ( newPoint < 0 ) {
+    newPlace = 0;
+} else if ( newPoint > 1 ) {
+    newPlace = sliderWidth;
+} else {
+    newPlace = sliderWidth * newPoint;
+}
+
+return {
+    'position': newPlace + 'px'
+}
+}
+
 
 window.addEventListener("load", function() {
     /* affichage image après téléchargement */
@@ -50,49 +93,12 @@ window.addEventListener("load", function() {
     }
     /* fin (affichage image) */
 
-    /* Bulma - Slider */
-    // Find output DOM associated to the DOM element passed as parameter
-    function findOutputForSlider( element ) {
-        var idVal = element.id;
-        outputs = document.getElementsByTagName( 'output' );
-        for( var i = 0; i < outputs.length; i++ ) {
-        if ( outputs[ i ].htmlFor == idVal )
-            return outputs[ i ];
-        }
-    }
-    
-    function getSliderOutputPosition( slider ) {
-    // Update output position
-    var newPlace,
-        minValue;
-    
-    var style = window.getComputedStyle( slider, null );
-    // Measure width of range input
-    sliderWidth = parseInt( style.getPropertyValue( 'width' ), 10 );
-    
-    // Figure out placement percentage between left and right of input
-    if ( !slider.getAttribute( 'min' ) ) {
-        minValue = 0;
-    } else {
-        minValue = slider.getAttribute( 'min' );
-    }
-    var newPoint = ( slider.value - minValue ) / ( slider.getAttribute( 'max' ) - minValue );
-    
-    // Prevent bubble from going beyond left or right (unsupported browsers)
-    if ( newPoint < 0 ) {
-        newPlace = 0;
-    } else if ( newPoint > 1 ) {
-        newPlace = sliderWidth;
-    } else {
-        newPlace = sliderWidth * newPoint;
-    }
-    
-    return {
-        'position': newPlace + 'px'
-    }
-    }
-    
-    document.addEventListener( 'DOMContentLoaded', function () {
+})
+
+/* Bulma - Slider */
+// Find output DOM associated to the DOM element passed as parameter
+document.addEventListener( 'DOMContentLoaded', function () {
+    console.log("DOMContentLoaded");
     // Get all document sliders
     var sliders = document.querySelectorAll( 'input[type="range"].slider' );
     [].forEach.call( sliders, function ( slider ) {
@@ -121,5 +127,5 @@ window.addEventListener("load", function() {
         } );
         }
     } );
-    } );
-})
+});
+    

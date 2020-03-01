@@ -3,57 +3,86 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <main class="columns">
-        <aside class="column is-one-quarter">
+
+<main class="columns">
+    <aside class="column is-one-third">
+        <div class="panel is-primary">
+            <p class="panel-heading">
+                Filtres
+            </p>
             <form method="POST">
-                <div>
-                    <label>Catégorie</label>
-                    <select name="categorie">
-                        <option value="">Toutes les catégories</option>
-                        {% for cat in categories %}
-                                <option value='{{ cat.id }}' {{ categorie_choisie == cat.id ? "selected" : ""  }}>  {{ cat.titre }} </option>
-                        {% endfor %}
-                    </select>
+
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" placeholder="Search">
+                        <span class="icon is-left">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </span>
+                    </p>
                 </div>
 
-                <div>
-                    <label>Régions</label>
-                    <select name="region">
-                        <option value="">Toutes les régions</option>
-                        {% for region in regions %}
-                                <option value='{{ region.ville }}' {{ ville_choisie == region.ville ? "selected" : ""  }} >  {{ region.ville }} </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                
-                <div>
-                    <label>Membres</label>
-                    <select name="membre">
-                        <option value="">Tous les membres</option>
-                        {% for m in membres %}
-                                <option value='{{ m.id }}' {{ membre_choisi == m.id ? "selected" : ""  }}>  {{ m.pseudo }} </option>
-                        {% endfor %}                                
-                    </select>
+                <div class="panel-block is-active">
+                    <p class="control has-icons-">
+                        <label class="label">Catégorie</label>
+                        <div class="select is-fullwidth">
+                            <select name="categorie">
+                                <option value="">Toutes les catégories</option>
+                                {% for cat in categories %}
+                                        <option value='{{ cat.id }}' {{ categorie_choisie == cat.id ? "selected" : ""  }}>  {{ cat.titre }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </p>
                 </div>
 
-                <div>
-                    <label>Prix >=<output id="prixAffiche">{{ prix_choisi }}</output></label><br>
-                    0<input type=range id="prix" name="prix" onchange="prixAffiche.innerHTML=this.value" min=0 max=100000 step=1000 value={{ prix_choisi }}>100.000
-                    
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <label class="label">Régions</label>
+                        <div class="select is-fullwidth">
+                            <select name="region">
+                                <option value="">Toutes les régions</option>
+                                {% for region in regions %}
+                                        <option value='{{ region.ville }}' {{ ville_choisie == region.ville ? "selected" : ""  }} >  {{ region.ville }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </p>
                 </div>
-                
-                <button>Filtrer</button>
+
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <label class="label">Membres</label>
+                        <div class="select is-fullwidth">
+                            <select name="membre">
+                                <option value="">Tous les membres</option>
+                                {% for m in membres %}
+                                        <option value='{{ m.id }}' {{ membre_choisi == m.id ? "selected" : ""  }}>  {{ m.pseudo }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </p>
+                </div>
+
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <label class="label">Prix <span class="is-pulled-right"><=<output for="prix">{{ prix_choisi }}</output> €</span></label>
+                        <input class="slider is-fullwidth has-output" type=range id="prix" name="prix" min=0 max=10000 step=100 value={{ prix_choisi }}>
+                    </p>    
+                </div>
             </form>
-        </aside>
+        </div>
 
-        <section class="column">
-            {% if annonces|length %}
-                {% for ann in annonces %}
-                    {% include "annonce/vignette.html.twig" with { "annonce": ann } %}
-                {% endfor %}
-            {% else %}
-                <p>Aucune annonce ne correspond aux critères demandés</p>
-            {% endif %}    
-        </section>
-    </main>
+    </aside>
+
+    <section class="column">
+        {% if annonces|length %}
+            {% for ann in annonces %}
+                {% include "annonce/vignette.html.twig" with { "annonce": ann } %}
+            {% endfor %}
+        {% else %}
+            <p>Aucune annonce ne correspond aux critères demandés</p>
+        {% endif %}
+    </section>
+</main>
+
 {% endblock %}

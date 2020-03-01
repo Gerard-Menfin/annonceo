@@ -7,22 +7,20 @@
         {{ encore_entry_link_tags("app") }}
     {% endblock %}
 </head>
-<body>
-    <section class="section">
-        <div class="container">
-            {% block nav %}
-                {% include "menu/visiteur.html.twig" %}
-            {% endblock %}
+<body >
+    <div class="container">
+        {% block nav %}
+            {% include "menu/visiteur.html.twig" %}
+        {% endblock %}
 
-            {# MESSAGES #}
-            {% include "message.twig" %}            
-            {% block body %}
-            {% endblock %}
+        {# MESSAGES #}
+        {% include "message.twig" %}            
+        {% block body %}
+        {% endblock %}
 
-            {% block javascripts %}
-                {{ encore_entry_script_tags("app") }}
-            {% endblock %}
-        </div>
-    </section>
+        {% block javascripts %}
+            {{ encore_entry_script_tags("app") }}
+        {% endblock %}
+    </div>
     </body>
 </html>

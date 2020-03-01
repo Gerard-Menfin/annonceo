@@ -1,6 +1,44 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
-$primary: #5651ff;
+$primary: #6664ad;
+$link: #302e5e;
+$info: #50c2f7;
+$success: #4dc1f7;
+$warning: #db8d44;
+$danger: #db4444;
+$dark: #1a2a55;
+$text: #1a2a55;
+$bleu-gris: #dbdaee;
+// $body-background-color: $bleu-gris;
 @import "~bulma";
+@import "~bulma-slider";
+
+/*
+
+// Set your brand colors
+$purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $purple;
+$link: $pink;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$body-background-color: $beige-lighter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+*/
+
+
+
 
 // main{
 //     padding: 1%;
