@@ -15,7 +15,7 @@ categorie:
     methods:    GET|HEAD
 
 categorie_list:
-    path:       /categorie
+    path:       /categorie/liste
     controller: App\Controller\CategorieController::list
     methods:    GET|HEAD
 

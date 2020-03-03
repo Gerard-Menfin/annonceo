@@ -72,6 +72,9 @@ return {
 }
 
 
+
+
+
 window.addEventListener("load", function() {
     /* affichage image après téléchargement */
     if(document.querySelector("[id ^= 'annonce_photo']")){
@@ -93,6 +96,13 @@ window.addEventListener("load", function() {
     }
     /* fin (affichage image) */
 
+    /* Formulaire de Recherche */
+    let inputs = document.querySelectorAll("#frmRecherche input, #frmRecherche select, #frmRecherche textarea");
+    inputs.forEach(function(inp, ind, parent){
+        inp.addEventListener("change", function(){
+            document.querySelector("#frmRecherche").submit(); 
+        })
+    })
 })
 
 /* Bulma - Slider */
