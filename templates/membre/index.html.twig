@@ -1,20 +1,106 @@
-{% extends 'base.html.twig' %}
+{% extends app.user ? is_granted("ROLE_ADMIN") ? "menu/connecte.html.twig" : "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
 
-{% block title %}Hello MembreController!{% endblock %}
+{% block title %}Membres{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<main class="columns">
+    <aside class="column is-one-third">
+        <div class="panel has-background-white">
+            <p class="panel-heading">Filtres</p>
+            <form method="POST">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/stagiaire/projets/annonceo/src/Controller/MembreController.php'|file_link(0) }}">src/Controller/MembreController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/stagiaire/projets/annonceo/templates/membre/index.html.twig'|file_link(0) }}">templates/membre/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <input class="input" type="text" placeholder="Search">
+                        <span class="icon is-left">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="panel-block">
+                    <p class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label">Catégorie</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="select is-fullwidth">
+                                    <select name="categorie">
+                                        <option value="">Toutes les catégories</option>
+                                        {% for cat in categories %}
+                                            <option value='{{ cat.id }}' {{ categorie_choisie is defined and categorie_choisie == cat.id ? "selected" : ""  }}>  {{ cat.titre }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+
+                <div class="panel-block">
+                    <p class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label">Régions</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="region">
+                                            <option value="">Toutes les régions</option>
+                                            {% for region in regions %}
+                                                    <option value='{{ region.ville }}' {{ ville_choisie is defined and ville_choisie == region.ville ? "selected" : ""  }} >  {{ region.ville }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+
+                <div class="panel-block">
+                    <p class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label">Membres</label>
+                        </div>
+                         <div class="field-body">
+                            <div class="field">
+                               <div class="select is-fullwidth">
+                                    <select name="membre">
+                                        <option value="">Tous les membres</option>
+                                        {% for m in membres %}
+                                                <option value='{{ m.id }}' {{ membre_choisi is defined and membre_choisi == m.id ? "selected" : ""  }}>  {{ m.pseudo }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+
+                <div class="panel-block">
+                    <p class="control has-icons-left">
+                        <label class="label">Prix <span class="is-pulled-right"><=<output for="prix">{{ prix_choisie is defined ? prix_choisi : 0 }}</output> €</span></label>
+                        <input class="slider is-fullwidth has-output" type=range id="prix" name="prix" min=0 max=10000 step=100 value={{ prix_choisie is defined ? prix_choisi : 0 }}>
+                    </p>    
+                </div>
+            </form>
+        </div>
+
+    </aside>
+
+    <section class="column">
+        {% if membres|length %}
+            {% for membre in membres %}
+                {% include "membre/vignette.html.twig" with { "membre": membre } %}
+            {% endfor %}
+        {% else %}
+            <p>Aucun membre ne correspond aux critères demandés</p>
+        {% endif %}
+    </section>
+</main>
+
 {% endblock %}

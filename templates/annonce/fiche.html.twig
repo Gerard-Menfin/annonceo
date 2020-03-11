@@ -1,4 +1,4 @@
-{% extends "menu/visiteur.html.twig" %}
+{% extends app.user ? "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
 
 {% block body %}
     <h1>{{ annonce.titre|upper }} <a href="" class="button is-pulled-right">Contacter {{ annonce.membre.pseudo }}</a></h1>

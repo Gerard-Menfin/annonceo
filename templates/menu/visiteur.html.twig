@@ -3,8 +3,8 @@
 {% block nav %}
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="">
-                <img src="{{ url_dossier_images }}logo.jpg" width="112" >
+            <a class="navbar-item" href="{{ path("accueil") }}">
+                <img src="{{ url_dossier_images }}logo.jpg" >
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -14,34 +14,42 @@
             </a>
         </div>
 
-        <form>
-            <input name="recherche">
-            <button>Rechercher</button>
-            
-        </form>
+        {# <form>
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input" name="recherche" type="text" placeholder="Search">
+                </div>
+                <div class="control">
+                    <button type="submit" class="button">
+                        <span class="icon is-left">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>           
+        </form> #}
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{{path("accueil") }}">
-                    Accueil
-                </a>
-
-                <a class="navbar-item">
-                    Annonces
-                </a>
-
+                <a class="navbar-item" href="{{ path("accueil") }}">Annonces</a>
+                <a class="navbar-item" href="{{ path("membres") }}">Membres</a>
             </div>
+
 
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Inscription</strong>
-                    </a>
-                    <a class="button is-light" href="{{ path("app_login") }}">
-                        Connexion
-                    </a>
-                    </div>
+                        <a class="button is-primary">
+                            <span class="icon is-medium" title="Inscription">
+                                <i class="fa fa-user-plus fa-lg"></i>
+                            </span>
+                        </a>
+                        <a class="button is-success" href="{{ path("app_login") }}">
+                            <span class="icon" title="Connexion">
+                                <i class="fa fa-sign-in-alt fa-lg"></i>
+                            </span>
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>

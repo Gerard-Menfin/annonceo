@@ -19,8 +19,6 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
-
-    // créer une méthode pour récupérer la liste des villes (sans doublon) de la table Annonce
     /**
      * @return Annonce[] Returns an array of Annonce objects
      */

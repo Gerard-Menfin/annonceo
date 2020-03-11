@@ -8,7 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface as EMI;
-use App\Repository\AnnonceRepository as AR;
+use App\Repository\MembreRepository as MembreRepo;
+use App\Repository\AnnonceRepository as AnnonceRepo;
+use App\Repository\CategorieRepository as CategorieRepo;
 use App\Entity\Photo, DateTime;
 
 class MembreController extends AbstractController
@@ -16,12 +18,31 @@ class MembreController extends AbstractController
     /**
      * @Route("/membre", name="membre")
      */
-    public function index()
+    public function index (MembreRepo $mr)
     {
-        return $this->render('membre/index.html.twig', [
-            'controller_name' => 'MembreController',
-        ]);
+        return $this->render('membre/index.html.twig' );
     }
+
+    /**
+     * @Route("/les-membres-actifs", name="membres")
+     */
+    public function membres (MembreRepo $mr, CategorieRepo $cr, AnnonceRepo $ar)
+    {
+        $categories = $cr->findAll();
+        $membres = $mr->findByRole("ROLE_USER");
+        $regions = $ar->findRegions();
+        return $this->render('membre/index.html.twig', compact("categories", "membres", "regions"));
+    }
+
+    /**
+     * @Route("/afficher/membre/{pseudo}", name="membre_afficher")
+     */
+    public function afficher(MembreRepo $mr, int $pseudo)
+    {
+        $membre = $mr->findBy([ "pseudo" => $pseudo]);
+        return $this->render("membre/fiche.html.twig", compact("membre"));
+    }
+
 
     /**
      * @Route("/profil", name="profil")
@@ -100,7 +121,7 @@ class MembreController extends AbstractController
      * @Route("/profil/annonces/modifier/{id}", name="modifier_annonce")
      * 
      */
-    public function modifier_annonce(Request $rq, AR $ar, EMI $em, int $id)
+    public function modifier_annonce(Request $rq, AnnonceRepo $ar, EMI $em, int $id)
     {
         $annonceAmodifier = $ar->find($id);
         if($annonceAmodifier && $annonceAmodifier->getMembre()->getId() == $this->getUser()->getId()){

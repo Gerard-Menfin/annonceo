@@ -1,20 +1,40 @@
-<div class="columns box">
-    <div class="column is-one-quarter">
-        <img src="{{ dossier_images_annonces ~ annonce.photo.photo1 }}" class="vignette">
-    </div>
-    <div class="column">
+<article class="media box">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{{ dossier_images_annonces ~ annonce.photo.photo1 }}">
+    </p>
+  </figure>
+
+  <div class="media-content">
+    <div class="content">
         <h4>
             <a href="{{ path("annonce_afficher", { id: annonce.id }) }}">{{ annonce.titre|upper }} </a>
-            {% if annonce.membre == app.user %}
-            <a class="is-pulled-right" 
-                    href="{{ path("modifier_annonce", { id: annonce.id }) }}">
-                <i class="fa fa-pen"></i>
-            </a>
-            {% endif %}
         </h4>
         <p>{{ annonce.descriptioncourte }}</p>
-        <br>
-        <p><span>{{ annonce.membre.pseudo }}</span> <span class="is-pulled-right">{{ annonce.prix }} €</span></p>
     </div>
-</div>
-<br>
+
+    <nav class="level">
+      <div class="level-left">
+          <a class="level-item" >
+            <span class="icon is-small"><i class="fas fa-user"></i></span>
+            {{ annonce.membre.pseudo }}
+          </a>
+          <span class="level-item ">
+            <span class="icon is-small"><i class="fas fa-euro-sign"></i></span>
+            {{ annonce.prix }}
+          </span>
+
+      </div>
+    </nav>
+  </div>
+
+  <div class="media-right">
+    {% if annonce.membre == app.user %}
+    <a class="" 
+       href="{{ path("modifier_annonce", { id: annonce.id }) }}">
+        <i class="fa fa-pen"></i>
+    </a>
+    <button class="delete"></button>
+    {% endif %}
+  </div>
+</article>

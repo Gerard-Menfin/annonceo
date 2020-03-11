@@ -101,7 +101,7 @@ window.addEventListener("load", function() {
     inputs.forEach(function(inp, ind, parent){
         inp.addEventListener("change", function(){
             document.querySelector("#frmRecherche").submit(); 
-        })
+        });
     })
 })
 

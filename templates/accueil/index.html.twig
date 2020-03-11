@@ -6,11 +6,9 @@
 
 <main class="columns">
     <aside class="column is-one-third">
-        <div class="panel is-primary">
-            <p class="panel-heading">
-                Filtres
-            </p>
-            <form method="POST">
+        <div class="panel has-background-white">
+            <p class="panel-heading">Filtres</p>
+            <form method="POST" id="frmRecherche">
 
                 <div class="panel-block">
                     <p class="control has-icons-left">
@@ -22,43 +20,63 @@
                 </div>
 
                 <div class="panel-block is-active">
-                    <p class="control has-icons-">
-                        <label class="label">Catégorie</label>
-                        <div class="select is-fullwidth">
-                            <select name="categorie">
-                                <option value="">Toutes les catégories</option>
-                                {% for cat in categories %}
-                                        <option value='{{ cat.id }}' {{ categorie_choisie == cat.id ? "selected" : ""  }}>  {{ cat.titre }} </option>
-                                {% endfor %}
-                            </select>
+                    <p class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label">Catégorie</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="select is-fullwidth">
+                                    <select name="categorie">
+                                        <option value="">Toutes les catégories</option>
+                                        {% for cat in categories %}
+                                            <option value='{{ cat.id }}' {{ categorie_choisie == cat.id ? "selected" : ""  }}>  {{ cat.titre }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </p>
                 </div>
 
                 <div class="panel-block">
-                    <p class="control has-icons-left">
-                        <label class="label">Régions</label>
-                        <div class="select is-fullwidth">
-                            <select name="region">
-                                <option value="">Toutes les régions</option>
-                                {% for region in regions %}
-                                        <option value='{{ region.ville }}' {{ ville_choisie == region.ville ? "selected" : ""  }} >  {{ region.ville }} </option>
-                                {% endfor %}
-                            </select>
+                    <p class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label">Régions</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="region">
+                                            <option value="">Toutes les régions</option>
+                                            {% for region in regions %}
+                                                    <option value='{{ region.ville }}' {{ ville_choisie == region.ville ? "selected" : ""  }} >  {{ region.ville }} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </p>
+                            </div>
                         </div>
                     </p>
                 </div>
 
                 <div class="panel-block">
-                    <p class="control has-icons-left">
-                        <label class="label">Membres</label>
-                        <div class="select is-fullwidth">
-                            <select name="membre">
-                                <option value="">Tous les membres</option>
-                                {% for m in membres %}
-                                        <option value='{{ m.id }}' {{ membre_choisi == m.id ? "selected" : ""  }}>  {{ m.pseudo }} </option>
-                                {% endfor %}
-                            </select>
+                    <p class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label">Membres</label>
+                        </div>
+                         <div class="field-body">
+                            <div class="field">
+                               <div class="select is-fullwidth">
+                                    <select name="membre">
+                                        <option value="">Tous les membres</option>
+                                        {% for m in membres %}
+                                                <option value='{{ m.id }}' {{ membre_choisi == m.id ? "selected" : ""  }}>  {{ m.pseudo }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </p>
                 </div>

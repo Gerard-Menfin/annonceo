@@ -1,3 +1,4 @@
+{% extends app.user ? is_granted("ROLE_ADMIN") ? "menu/connecte.html.twig" : "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello StatistiqueController!{% endblock %}
