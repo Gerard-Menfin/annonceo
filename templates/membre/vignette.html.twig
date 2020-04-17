@@ -1,0 +1,40 @@
+<article class="media box">
+  <figure class="media-left">
+    <p class="icon is-large">
+      <i class="fa fa-user fa-3x"></i>
+    </p>
+  </figure>
+
+  <div class="media-content">
+    <div class="content">
+        <h4>
+            <a href="{{ path("membre_afficher", { pseudo: membre.pseudo }) }}">{{ membre.pseudo|upper }} </a>
+        </h4>
+        <p>{{ membre.prenom ~ " " ~ membre.nom }}</p>
+    </div>
+
+    <nav class="level">
+      <div class="level-left">
+          <a class="level-item" >
+            <span class="icon is-small"><i class="fas fa-newspaper"></i></span>
+            {{ membre.annonces|length }}
+          </a>
+          <span class="level-item ">
+            <span class="icon is-small"><i class="fas fa-at"></i></span>
+            {{ membre.email }}
+          </span>
+
+      </div>
+    </nav>
+  </div>
+
+  <div class="media-right">
+    {% if membre == app.user %}
+    <a class="" 
+       href="{{ path("profil", { id: membre.id }) }}">
+        <i class="fa fa-pen"></i>
+    </a>
+    <button class="delete"></button>
+    {% endif %}
+  </div>
+</article>

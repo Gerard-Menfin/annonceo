@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AccueilController extends AbstractController
 {
-
+    /**
+     * @Route("/", name="home")
+     */
     public function index(Request $rq, AR $annRepo, CR $catRepo, MR $membreRepo)
     {
         $categorie_choisie = null;
@@ -70,5 +72,12 @@ class AccueilController extends AbstractController
         $membres = $membreRepo->findByRole("ROLE_USER");
         $regions = $annRepo->findRegions();
         return $this->render('accueil/index.html.twig', compact("categories", "membres", "annonces", "regions", "prix_choisi", "ville_choisie", "membre_choisi", "categorie_choisie"));
+    }
+
+    /**
+     * @Route("/test", name="testmap")
+     */
+    public function test(){
+        return $this->render("test.html.twig");
     }
 }

@@ -1,0 +1,21 @@
+{% extends app.user "menu/connecte.html.twig" : "menu/visiteur.html.twig" %}
+
+{% block body %}
+    <h1> PROFIL </h1>
+    <div class="columns is-centered section">
+        <div class="column is-half">
+            <p>{{ membre.civilite == "H" ? "M." : membre.civilite == "F" ? "Mme" : "Nspp" }}
+             {{ membre.nom ~ " " ~ membre.prenom }}</p>
+            <p>{{ membre.pseudo|upper }}</p>
+            <p>{{ membre.telephone }}</p>
+            <p>{{ membre.email }}</p>
+            <p>Inscrit{{ membre.civilite == "F" ? "e" : "" }} depuis le {{ membre.dateenregistrement|date("d/m/Y à H:i:s") }}</p>
+        </div>
+
+        <div class="column">
+            {% for annonce in membre.annonces %}
+                {% include "annonce/vignette.html.twig" with { "annonce": annonce } %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
